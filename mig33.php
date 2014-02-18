@@ -398,5 +398,37 @@ class Mig33 {
 		}
 	}
 }
-
 new Mig33();
+
+/**
+ * Embed mig33's Follow Button
+ *
+ * @param string $username
+ * @return string Print out iFrame that displays the mig33's Follow Button
+ */
+function mig33_follow_button( $username = '' ) {
+	$options = get_option( 'mig33' );
+	$params = array(
+		'account' => ( !empty( $username ) ? $username : $options['username'] )
+	);
+	echo '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://www.'.$options['url'].'/share_to_mig33/button/follow?'.http_build_query( $params ).'" style="width:150px; height:20px;"></iframe>';
+}
+
+/**
+ * Embed mig33's Share Button
+ *
+ * @param string $body
+ * @param string $link
+ * @param string $username
+ * @return string Print out iFrame that displays the mig33's Share Button
+ */
+function mig33_share_button( $body  = '', $link = '', $username = '' ) {
+	$options = get_option( 'mig33' );
+	$link = ( !empty( $link ) ? $link : get_permalink() );
+	$params = array(
+		  'body'      => ( !empty( $body ) ? $body : get_the_title() ). ' - '.$link
+		, 'link'      => $link
+		, 'account'   => ( !empty( $username ) ? $username : $options['username'] )
+	);
+	echo '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://www.'.$options['url'].'/share_to_mig33/button/share?'.http_build_query( $params ).'" style="width:80px; height:18px;"></iframe>';
+}

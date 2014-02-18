@@ -34,7 +34,27 @@ This is mig33's WordPress plugin. Right now, you can automatically share a post 
 
 ## Frequently Asked Questions
 
-Coming soon ...
+### How to embed mig33's Follow Button?
+* Place the following code anywhere in your theme:
+<code>
+<?php if( function_exists( 'mig33_follow_button' ) ): ?>
+	<?php mig33_follow_button(); ?>
+<?php endif; ?>
+</code>
+* You can embed another mig33 user follow button as well: Eg. `<?php mig33_follow_button( 'lesterchan' ); ?>`
+* First Argument: mig33's Username
+
+### How to embed mig33's Share Button?
+* Place the following code anywhere within the [WordPress loop](http://codex.wordpress.org/The_Loop "WordPress Loop") in your theme:
+<code>
+<?php if( function_exists( 'mig33_share_button' ) ): ?>
+	<?php mig33_share_button(); ?>
+<?php endif; ?>
+</code>
+* You can overwrite the default values: Eg.  `<?php mig33_share_button( 'Lester Chan\'s Website', 'http://lesterchan.net', 'lesterchan' ); ?>`
+* First Argument: Page Title
+* Second Argument: Link To The Page
+* Third Argument: mig33's Username
 
 ## Upgrade Notice
 
