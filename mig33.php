@@ -36,19 +36,24 @@ define( 'MIG33', '1.0.0' );
 
 /**
  * Class Mig33
+ *
+ * @access public
  */
-class Mig33 {
+class Mig33
+{
 	/**
-	 * Option
+	 * Storing this plugin options
 	 *
-	 * @var null
+	 * @access private
+	 * @var array Plugin options
 	 */
 	private $option = null;
 
 	/**
-	 * The user encrypted session id
+	 * The mig33 user's encrypted session id
 	 *
-	 * @var null
+	 * @access private
+	 * @var string Encrypted session id
 	 */
 	private $eid = null;
 
@@ -58,7 +63,8 @@ class Mig33 {
 	 * @access public
 	 * @return void
 	 */
-	public function __construct(){
+	public function __construct()
+	{
 		add_action( 'init', array( $this, 'init' ) );
 
 		register_activation_hook( __FILE__, array( $this, 'plugin_activation' ) );
@@ -70,7 +76,8 @@ class Mig33 {
 	 * @access public
 	 * @return void
 	 */
-	public function init() {
+	public function init()
+	{
 		$this->option = get_option( 'mig33' );
 
 		// Admin
@@ -81,7 +88,7 @@ class Mig33 {
 		add_action( 'new_to_publish', array( $this, 'post_to_miniblog' ), 10, 1 );
 		add_action( 'draft_to_publish', array( $this, 'post_to_miniblog' ), 10, 1 );
 		add_action( 'pending_to_publish', array( $this, 'post_to_miniblog' ), 10, 1 );
-		add_action( 'future_to_publish', array( $this, 'post_to_miniblog'), 10, 1 );
+		add_action( 'future_to_publish', array( $this, 'post_to_miniblog' ), 10, 1 );
 
 		// Load Translation
 		load_plugin_textdomain( 'mig33', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
@@ -92,10 +99,11 @@ class Mig33 {
 	 * What to do when the plugin is being activated
 	 *
 	 * @access public
-	 * @param boolean Is the plugin being network activated?
+	 * @param boolean $network_wide Is the plugin being network activated?
 	 * @return void
 	 */
-	public function plugin_activation( $network_wide ) {
+	public function plugin_activation( $network_wide )
+	{
 		$option = array(
 			  'username'    => ''
 			, 'password'    => ''
@@ -103,18 +111,23 @@ class Mig33 {
 			, 'template'    => array( 'new_post' => '%POST_TITLE% - %POST_URL%' )
 		);
 
-		if ( is_multisite() && $network_wide ) {
+		if ( is_multisite() && $network_wide )
+		{
 			$ms_sites = wp_get_sites();
 
-			if( 0 < sizeof( $ms_sites ) ) {
-				foreach ( $ms_sites as $ms_site ) {
+			if( 0 < sizeof( $ms_sites ) )
+			{
+				foreach ( $ms_sites as $ms_site )
+				{
 					switch_to_blog( $ms_site['blog_id'] );
 					add_option( $option );
 				}
 			}
 
 			restore_current_blog();
-		} else {
+		}
+		else
+		{
 			add_option( $option );
 		}
 	}
@@ -127,7 +140,7 @@ class Mig33 {
 	 */
 	public function admin_menu()
 	{
-		add_options_page('mig33', 'mig33', 'publish_posts', 'mig33', array( $this, 'admin_page' ) );
+		add_options_page( 'mig33', 'mig33', 'publish_posts', 'mig33', array( $this, 'admin_page' ) );
 	}
 
 	/**
@@ -153,16 +166,16 @@ class Mig33 {
 	}
 
 	/**
-	 * Admin page
+	 * Display admin page
 	 *
 	 * @access public
 	 * @return void
 	 */
-	function admin_page()
+	public function admin_page()
 	{
-		if(!empty($_POST['do']))
+		if( !empty( $_POST['do'] ) )
 		{
-			check_admin_referer('mig33-options');
+			check_admin_referer( 'mig33-options' );
 
 			$option = array(
 				  'url'         => sanitize_text_field( $_POST['url'] )
@@ -175,10 +188,13 @@ class Mig33 {
 
 			$update_option = update_option( 'mig33' , $option );
 
-			if($update_option) {
+			if( $update_option )
+			{
 				$this->option = get_option( 'mig33' );
 				echo '<div id="message" class="updated fade"><p>'.__( 'Options Updated', 'mig33' ).'</p></div>';
-			} else {
+			}
+			else
+			{
 				echo '<div id="message" class="updated fade"><p>'.__( 'No changes have been made', 'mig33' ).'</p></div>';
 			}
 		}
@@ -257,7 +273,7 @@ class Mig33 {
 		curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, 10 );
 		curl_setopt( $ch, CURLOPT_TIMEOUT, 30 );
 		preg_match( '/^Set-Cookie: eid=(.*?);/m', curl_exec( $ch ), $cookies );
-		curl_close($ch);
+		curl_close( $ch );
 
 		// Cookie Value
 		$this->eid = ( isset( $cookies[1] ) ? $cookies[1] : '' );
@@ -275,7 +291,8 @@ class Mig33 {
 		$this->login_and_get_eid();
 
 		// Check if eid is empty
-		if( empty( $this->eid ) ) {
+		if( empty( $this->eid ) )
+		{
 			add_filter( 'redirect_post_location',  array( $this, 'set_post_to_miniblog_error' ) );
 			return;
 		}
@@ -286,16 +303,19 @@ class Mig33 {
 		// Tags
 		$tags_array = array();
 		$tags = get_the_tags( $post_id );
-		if( $tags && sizeof( $tags ) > 0 ) {
-			foreach( $tags as $tag ) {
-				$tags_array[] = $tag->name;
+		if( $tags && sizeof( $tags ) > 0 )
+		{
+			foreach( $tags as $tag )
+			{
+				$tags_array[] = '#' . $tag->name;
 			}
 		}
 
 		// Categories
 		$categories_array = array();
 		$categories = wp_get_post_categories( $post_id );
-		if( $categories && sizeof( $categories ) > 0 ) {
+		if( $categories && sizeof( $categories ) > 0 )
+		{
 			foreach( $categories as $category )
 			{
 				$cat = get_category( $category );
@@ -324,8 +344,8 @@ class Mig33 {
 				, get_the_author_meta( 'display_name', $post->post_author )
 				, mysql2date( get_option( 'date_format' ), $post->post_date )
 				, mysql2date( get_option( 'time_format' ), $post->post_date )
-				, implode(' ', $tags_array )
-				, implode(', ', $categories_array )
+				, implode( ' ', $tags_array )
+				, implode( ', ', $categories_array )
 			),
 			$this->option['template']['new_post']
 		);
@@ -347,28 +367,38 @@ class Mig33 {
 		$results = curl_exec( $ch );
 		curl_close( $ch );
 
-		add_filter( 'redirect_post_location',  array( $this, 'set_post_to_miniblog_success' ) );
+		// Success or error?
+		if( empty( $results ) )
+		{
+			add_filter( 'redirect_post_location',  array( $this, 'set_post_to_miniblog_success' ) );
+		}
+		else
+		{
+			add_filter( 'redirect_post_location',  array( $this, 'set_post_to_miniblog_error' ) );
+		}
 	}
 
 	/**
-	 * Flag message as success
+	 * Flag post to miniblog status as success
 	 *
 	 * @access public
 	 * @param string $url URL
-	 * @return string
+	 * @return string New URL query string
 	 */
-	public function set_post_to_miniblog_success( $url ) {
+	public function set_post_to_miniblog_success( $url )
+	{
 		return add_query_arg( 'mig33_message', 1, $url );
 	}
 
 	/**
-	 * Flag message as error
+	 * Flag post to miniblog status as error
 	 *
 	 * @access public
 	 * @param string $url URL
-	 * @return string
+	 * @return string New URL query string
 	 */
-	public function set_post_to_miniblog_error( $url ) {
+	public function set_post_to_miniblog_error( $url )
+	{
 		return add_query_arg( 'mig33_message', 0, $url );
 	}
 
@@ -376,23 +406,33 @@ class Mig33 {
 	 * Show only a snippet of a text
 	 *
 	 * @access private
-	 * @param string $text
-	 * @param int $length
-	 * @return string
+	 * @param string $text Text to be truncated
+	 * @param int $length Optional. Number of characters allowed
+	 * @return string Truncated text
 	 */
-	private function snippet_text( $text, $length = 0 ) {
-		if( defined( 'MB_OVERLOAD_STRING' ) ) {
+	private function snippet_text( $text, $length = 0 )
+	{
+		if( defined( 'MB_OVERLOAD_STRING' ) )
+		{
 			$text = @html_entity_decode( $text, ENT_QUOTES, get_option( 'blog_charset' ) );
-			if ( mb_strlen( $text ) > $length ) {
+			if ( mb_strlen( $text ) > $length )
+			{
 				return htmlentities( mb_substr( $text, 0, $length ), ENT_COMPAT, get_option( 'blog_charset' ) ).'...';
-			} else {
+			}
+			else
+			{
 				return htmlentities( $text, ENT_COMPAT, get_option( 'blog_charset' ) );
 			}
-		} else {
+		}
+		else
+		{
 			$text = @html_entity_decode( $text, ENT_QUOTES, get_option( 'blog_charset' ) );
-			if ( strlen( $text ) > $length ) {
+			if ( strlen( $text ) > $length )
+			{
 				return htmlentities( substr( $text, 0, $length ), ENT_COMPAT, get_option( 'blog_charset' ) ).'...';
-			} else {
+			}
+			else
+			{
 				return htmlentities( $text, ENT_COMPAT, get_option( 'blog_charset' ) );
 			}
 		}
@@ -403,10 +443,12 @@ new Mig33();
 /**
  * Embed mig33's Follow Button
  *
- * @param string $username
- * @return string Print out iFrame that displays the mig33's Follow Button
+ * @access public
+ * @param string $username Optional. mig33's username
+ * @return string Print out an iFrame that displays the mig33's Follow Button
  */
-function mig33_follow_button( $username = '' ) {
+function mig33_follow_button( $username = '' )
+{
 	$options = get_option( 'mig33' );
 	$params = array(
 		'account' => ( !empty( $username ) ? $username : $options['username'] )
@@ -417,12 +459,14 @@ function mig33_follow_button( $username = '' ) {
 /**
  * Embed mig33's Share Button
  *
- * @param string $body
- * @param string $link
- * @param string $username
- * @return string Print out iFrame that displays the mig33's Share Button
+ * @access public
+ * @param string $body Optional. Post title
+ * @param string $link Optional. Link to the post
+ * @param string $username Optional. mig33's username
+ * @return string Print out an iFrame that displays the mig33's Share Button
  */
-function mig33_share_button( $body  = '', $link = '', $username = '' ) {
+function mig33_share_button( $body  = '', $link = '', $username = '' )
+{
 	$options = get_option( 'mig33' );
 	$link = ( !empty( $link ) ? $link : get_permalink() );
 	$params = array(
