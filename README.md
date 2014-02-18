@@ -1,12 +1,12 @@
 # mig33
-Contributors: GamerZ
-Donate link: http://lesterchan.net/site/donation/
-Tags: mig33, miniblog, blog, post, social network
-Requires at least: 3.7
-Tested up to: 3.8
-Stable tag: master
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Contributors: GamerZ  
+Donate link: http://lesterchan.net/site/donation/  
+Tags: mig33, miniblog, blog, post, social network  
+Requires at least: 3.7  
+Tested up to: 3.8  
+Stable tag: master  
+License: GPLv2 or later  
+License URI: http://www.gnu.org/licenses/gpl-2.0.html  
 
 Share a post to mig33's Miniblog whenever you publish a post in WordPress.
 
