@@ -104,6 +104,7 @@ class Mig33
 	 */
 	public function plugin_activation( $network_wide )
 	{
+		$option_name = 'mig33';
 		$option = array(
 			  'username'    => ''
 			, 'password'    => ''
@@ -120,7 +121,7 @@ class Mig33
 				foreach ( $ms_sites as $ms_site )
 				{
 					switch_to_blog( $ms_site['blog_id'] );
-					add_option( $option );
+					add_option( $option_name, $option );
 				}
 			}
 
@@ -128,7 +129,7 @@ class Mig33
 		}
 		else
 		{
-			add_option( $option );
+			add_option( $option_name, $option );
 		}
 	}
 
