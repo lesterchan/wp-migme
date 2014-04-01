@@ -3,7 +3,7 @@
 Plugin Name: mig33
 Plugin URI: http://lesterchan.net/portfolio/programming/php/
 Description: Share a post to mig33's Miniblog whenever you publish a post in WordPress.
-Version: 1.0.0
+Version: 1.0.1
 Author: Lester 'GaMerZ' Chan
 Author URI: http://lesterchan.net
 Text Domain: mig33
@@ -308,7 +308,7 @@ class Mig33
 		{
 			foreach( $tags as $tag )
 			{
-				$tags_array[] = '#' . $tag->name;
+				$tags_array[] = '#' . str_replace(' ', '', $tag->name);
 			}
 		}
 
