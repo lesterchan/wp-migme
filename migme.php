@@ -1,12 +1,12 @@
 <?php
 /*
-Plugin Name: mig33
+Plugin Name: migme
 Plugin URI: http://lesterchan.net/portfolio/programming/php/
-Description: Share a post to mig33's Miniblog whenever you publish a post in WordPress.
-Version: 1.0.1
+Description: Share a post to migme's Miniblog whenever you publish a post in WordPress.
+Version: 1.0.2
 Author: Lester 'GaMerZ' Chan
 Author URI: http://lesterchan.net
-Text Domain: mig33
+Text Domain: migme
 */
 
 /*
@@ -31,15 +31,15 @@ Text Domain: mig33
 /**
  * Drafts for Friends version
  */
-define( 'MIG33', '1.0.0' );
+define( 'MIGME', '1.0.1' );
 
 
 /**
- * Class Mig33
+ * Class Migme
  *
  * @access public
  */
-class Mig33
+class Migme
 {
 	/**
 	 * Storing this plugin options
@@ -50,7 +50,7 @@ class Mig33
 	private $option = null;
 
 	/**
-	 * The mig33 user's encrypted session id
+	 * The migme user's encrypted session id
 	 *
 	 * @access private
 	 * @var string Encrypted session id
@@ -78,7 +78,7 @@ class Mig33
 	 */
 	public function init()
 	{
-		$this->option = get_option( 'mig33' );
+		$this->option = get_option( 'migme' );
 
 		// Admin
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
@@ -91,7 +91,7 @@ class Mig33
 		add_action( 'future_to_publish', array( $this, 'post_to_miniblog' ), 10, 1 );
 
 		// Load Translation
-		load_plugin_textdomain( 'mig33', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'migme', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
 
@@ -104,11 +104,11 @@ class Mig33
 	 */
 	public function plugin_activation( $network_wide )
 	{
-		$option_name = 'mig33';
+		$option_name = 'migme';
 		$option = array(
 			  'username'    => ''
 			, 'password'    => ''
-			, 'url'         => 'mig33.com'
+			, 'url'         => 'mig.me'
 			, 'template'    => array( 'new_post' => '%POST_TITLE% - %POST_URL%' )
 		);
 
@@ -141,7 +141,7 @@ class Mig33
 	 */
 	public function admin_menu()
 	{
-		add_options_page( 'mig33', 'mig33', 'publish_posts', 'mig33', array( $this, 'admin_page' ) );
+		add_options_page( 'migme', 'migme', 'publish_posts', 'migme', array( $this, 'admin_page' ) );
 	}
 
 	/**
@@ -152,15 +152,15 @@ class Mig33
 	 */
 	public function admin_notices()
 	{
-		if( isset( $_GET['mig33_message'] ) )
+		if( isset( $_GET['migme_message'] ) )
 		{
-			switch( intval( $_GET['mig33_message'] ) )
+			switch( intval( $_GET['migme_message'] ) )
 			{
 				case 0:
-					echo '<div class="error"><p>'.__( 'Error posting to mig33\'s Miniblog.', 'mig33' ).'</p></div>';
+					echo '<div class="error"><p>'.__( 'Error posting to migme\'s Miniblog.', 'migme' ).'</p></div>';
 					break;
 				case 1:
-					echo '<div class="updated"><p>'.__( 'Successfully posted to mig33\'s Miniblog.', 'mig33' ).'</p></div>';
+					echo '<div class="updated"><p>'.__( 'Successfully posted to migme\'s Miniblog.', 'migme' ).'</p></div>';
 					break;
 			}
 		}
@@ -176,7 +176,7 @@ class Mig33
 	{
 		if( !empty( $_POST['do'] ) )
 		{
-			check_admin_referer( 'mig33-options' );
+			check_admin_referer( 'migme-options' );
 
 			$option = array(
 				  'url'         => sanitize_text_field( $_POST['url'] )
@@ -187,50 +187,50 @@ class Mig33
 				)
 			);
 
-			$update_option = update_option( 'mig33' , $option );
+			$update_option = update_option( 'migme' , $option );
 
 			if( $update_option )
 			{
-				$this->option = get_option( 'mig33' );
-				echo '<div id="message" class="updated fade"><p>'.__( 'Options Updated', 'mig33' ).'</p></div>';
+				$this->option = get_option( 'migme' );
+				echo '<div id="message" class="updated fade"><p>'.__( 'Options Updated', 'migme' ).'</p></div>';
 			}
 			else
 			{
-				echo '<div id="message" class="updated fade"><p>'.__( 'No changes have been made', 'mig33' ).'</p></div>';
+				echo '<div id="message" class="updated fade"><p>'.__( 'No changes have been made', 'migme' ).'</p></div>';
 			}
 		}
 		?>
 		<div class="wrap">
-			<h2>mig33</h2>
-			<form action="<?php echo admin_url( 'options-general.php?page=mig33' ); ?>" method="post">
-				<?php wp_nonce_field( 'mig33-options' ); ?>
-				<h3><?php _e( 'Credentials', 'mig33' ); ?></h3>
+			<h2>migme</h2>
+			<form action="<?php echo admin_url( 'options-general.php?page=migme' ); ?>" method="post">
+				<?php wp_nonce_field( 'migme-options' ); ?>
+				<h3><?php _e( 'Credentials', 'migme' ); ?></h3>
 				<table class="form-table">
 					<tr>
-						<th scope="row"><?php _e( 'mig33 URL', 'mig33' ); ?></th>
+						<th scope="row"><?php _e( 'migme URL', 'migme' ); ?></th>
 						<td>
-							<input type="text" name="url" value="<?php echo ( isset( $this->option['url'] ) ? $this->option['url'] : 'mig33.com' ); ?>" />
+							<input type="text" name="url" value="<?php echo ( isset( $this->option['url'] ) ? $this->option['url'] : 'mig.me' ); ?>" />
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><?php _e( 'Username', 'mig33' ); ?></th>
+						<th scope="row"><?php _e( 'Username', 'migme' ); ?></th>
 						<td>
 							<input type="text" name="username" value="<?php echo ( isset( $this->option['username'] ) ? $this->option['username'] : '' ); ?>" />
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><?php _e( 'Password', 'mig33' ); ?></th>
+						<th scope="row"><?php _e( 'Password', 'migme' ); ?></th>
 						<td>
 							<input type="password" name="password" value="<?php echo ( isset( $this->option['password'] ) ? $this->option['password'] : '' ); ?>" />
 						</td>
 					</tr>
 				</table>
-				<h3><?php _e( 'Templates', 'mig33' ); ?></h3>
+				<h3><?php _e( 'Templates', 'migme' ); ?></h3>
 				<table class="form-table">
 					<tr>
 						<td width="20%" scope="row">
-							<strong><?php _e( 'Create Post', 'mig33' ); ?></strong><br /><br />
-							<?php _e( 'Supported template variables: ', 'mig33' ); ?>
+							<strong><?php _e( 'Create Post', 'migme' ); ?></strong><br /><br />
+							<?php _e( 'Supported template variables: ', 'migme' ); ?>
 							<ul>
 								<li>%POST_TITLE%</li>
 								<li>%POST_EXCERPT%</li>
@@ -248,14 +248,14 @@ class Mig33
 						</td>
 					</tr>
 				</table>
-				<p class="submit"><input type="submit" class="button-primary" name="do" value="<?php _e( 'Save Changes', 'mig33' ); ?>" /></p>
+				<p class="submit"><input type="submit" class="button-primary" name="do" value="<?php _e( 'Save Changes', 'migme' ); ?>" /></p>
 			</form>
 		</div>
 <?php
 	}
 
 	/**
-	 * Login to mig33 and get the user's encrypted session id
+	 * Login to migme and get the user's encrypted session id
 	 *
 	 * @access private
 	 * @return void
@@ -281,7 +281,7 @@ class Mig33
 	}
 
 	/**
-	 * Post to mig33's Miniblog
+	 * Post to migme's Miniblog
 	 *
 	 * @access public
 	 * @param object WordPress's post object
@@ -353,7 +353,7 @@ class Mig33
 
 		// Post
 		$ch = curl_init();
-		curl_setopt( $ch, CURLOPT_URL, 'http://www.'.$this->option['url'].'/post/hidden_post' );
+		curl_setopt( $ch, CURLOPT_URL, 'http://'.$this->option['url'].'/post/hidden_post' );
 		curl_setopt( $ch, CURLOPT_POST, 1 );
 		curl_setopt( $ch, CURLOPT_POSTFIELDS, array(
 			  'body'                => $body
@@ -388,7 +388,7 @@ class Mig33
 	 */
 	public function set_post_to_miniblog_success( $url )
 	{
-		return add_query_arg( 'mig33_message', 1, $url );
+		return add_query_arg( 'migme_message', 1, $url );
 	}
 
 	/**
@@ -400,7 +400,7 @@ class Mig33
 	 */
 	public function set_post_to_miniblog_error( $url )
 	{
-		return add_query_arg( 'mig33_message', 0, $url );
+		return add_query_arg( 'migme_message', 0, $url );
 	}
 
 	/**
@@ -439,41 +439,41 @@ class Mig33
 		}
 	}
 }
-new Mig33();
+new Migme();
 
 /**
- * Embed mig33's Follow Button
+ * Embed migme's Follow Button
  *
  * @access public
- * @param string $username Optional. mig33's username
- * @return string Print out an iFrame that displays the mig33's Follow Button
+ * @param string $username Optional. migme's username
+ * @return string Print out an iFrame that displays the migme's Follow Button
  */
-function mig33_follow_button( $username = '' )
+function migme_follow_button( $username = '' )
 {
-	$options = get_option( 'mig33' );
+	$options = get_option( 'migme' );
 	$params = array(
 		'account' => ( !empty( $username ) ? $username : $options['username'] )
 	);
-	echo '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://www.'.$options['url'].'/share_to_mig33/button/follow?'.http_build_query( $params ).'" style="width:150px; height:20px;"></iframe>';
+	echo '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://'.$options['url'].'/share_to_mig33/button/follow?'.http_build_query( $params ).'" style="width:150px; height:20px;"></iframe>';
 }
 
 /**
- * Embed mig33's Share Button
+ * Embed migme's Share Button
  *
  * @access public
  * @param string $body Optional. Post title
  * @param string $link Optional. Link to the post
- * @param string $username Optional. mig33's username
- * @return string Print out an iFrame that displays the mig33's Share Button
+ * @param string $username Optional. migme's username
+ * @return string Print out an iFrame that displays the migme's Share Button
  */
-function mig33_share_button( $body  = '', $link = '', $username = '' )
+function migme_share_button( $body  = '', $link = '', $username = '' )
 {
-	$options = get_option( 'mig33' );
+	$options = get_option( 'migme' );
 	$link = ( !empty( $link ) ? $link : get_permalink() );
 	$params = array(
 		  'body'      => ( !empty( $body ) ? $body : get_the_title() ). ' - '.$link
 		, 'link'      => $link
 		, 'account'   => ( !empty( $username ) ? $username : $options['username'] )
 	);
-	echo '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://www.'.$options['url'].'/share_to_mig33/button/share?'.http_build_query( $params ).'" style="width:80px; height:18px;"></iframe>';
+	echo '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://'.$options['url'].'/share_to_mig33/button/share?'.http_build_query( $params ).'" style="width:80px; height:18px;"></iframe>';
 }

@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: mig33\n"
-"POT-Creation-Date: 2014-02-18 14:02+0800\n"
-"PO-Revision-Date: 2014-02-18 14:02+0800\n"
+"Project-Id-Version: migme\n"
+"POT-Creation-Date: 2014-06-02 17:35+0800\n"
+"PO-Revision-Date: 2014-06-02 17:35+0800\n"
 "Last-Translator: Lester Chan <lesterchan@gmail.com>\n"
 "Language-Team: Lester Chan <lesterchan@gmail.com>\n"
-"Language: en\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.6.5\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
@@ -18,50 +18,50 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: mig33.php:146
-msgid "Error posting to mig33's miniBlog."
+#: migme.php:160
+msgid "Error posting to migme's Miniblog."
 msgstr ""
 
-#: mig33.php:149
-msgid "Successfully posted to mig33's miniBlog."
+#: migme.php:163
+msgid "Successfully posted to migme's Miniblog."
 msgstr ""
 
-#: mig33.php:180
+#: migme.php:195
 msgid "Options Updated"
 msgstr ""
 
-#: mig33.php:182
+#: migme.php:199
 msgid "No changes have been made"
 msgstr ""
 
-#: mig33.php:190
+#: migme.php:207
 msgid "Credentials"
 msgstr ""
 
-#: mig33.php:193
-msgid "mig33 URL"
+#: migme.php:210
+msgid "migme URL"
 msgstr ""
 
-#: mig33.php:199
+#: migme.php:216
 msgid "Username"
 msgstr ""
 
-#: mig33.php:205
+#: migme.php:222
 msgid "Password"
 msgstr ""
 
-#: mig33.php:211
+#: migme.php:228
 msgid "Templates"
 msgstr ""
 
-#: mig33.php:215
+#: migme.php:232
 msgid "Create Post"
 msgstr ""
 
-#: mig33.php:216
+#: migme.php:233
 msgid "Supported template variables: "
 msgstr ""
 
-#: mig33.php:234
+#: migme.php:251
 msgid "Save Changes"
 msgstr ""
