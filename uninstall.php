@@ -1,11 +1,11 @@
 <?php
 /*
- * Uninstall mig33
+ * Uninstall migme
  */
 if ( !defined( 'WP_UNINSTALL_PLUGIN' ) )
 	exit ();
 
-$option_name = 'mig33';
+$option_name = 'migme';
 
 if ( is_multisite() ) {
 	$ms_sites = wp_get_sites();
