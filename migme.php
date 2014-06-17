@@ -29,7 +29,7 @@ Text Domain: migme
 
 
 /**
- * Drafts for Friends version
+ * Migme version
  */
 define( 'MIGME', '1.0.1' );
 
