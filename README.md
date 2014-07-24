@@ -11,8 +11,10 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Share a post to migme's Miniblog whenever you publish a post in WordPress.
 
 ## Description
-
 This is migme's WordPress plugin. Right now, you can automatically share a post to migme's Miniblog whenever you publish a post in your WordPress's blog. More features to come soon.
+
+### Build Status
+[![Build Status](https://travis-ci.org/lesterchan/wp-migme.svg?branch=master)](https://travis-ci.org/lesterchan/wp-migme)
 
 ## Changelog
 
