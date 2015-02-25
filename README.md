@@ -16,6 +16,9 @@ This is migme's WordPress plugin. Right now, you can automatically share a post 
 ### Build Status
 [![Build Status](https://travis-ci.org/lesterchan/wp-migme.svg?branch=master)](https://travis-ci.org/lesterchan/wp-migme)
 
+### Donations
+I spent most of my free time creating, updating, maintaining and supporting these plugins, if you really love my plugins and could spare me a couple of bucks, I will really appreciate it. If not feel free to use it without any obligations.
+
 ## Changelog
 
 ### 1.0.1
