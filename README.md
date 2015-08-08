@@ -3,7 +3,7 @@ Contributors: GamerZ
 Donate link: http://lesterchan.net/site/donation/  
 Tags: migme, mig33, miniblog, blog, post, social network  
 Requires at least: 3.7  
-Tested up to: 4.2  
+Tested up to: 4.3  
 Stable tag: trunk  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html  
